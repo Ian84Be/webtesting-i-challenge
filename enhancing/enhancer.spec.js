@@ -4,7 +4,7 @@ const enhancer = require('./enhancer.js');
 const elvinBow = {
     name:'Elvin Bow',
     durability: 90,
-    enhancement: -1,
+    enhancement: 15,
 };
 
 describe('enhancer.js', () => {
@@ -40,6 +40,36 @@ describe('enhancer.js', () => {
                 enhancement: enhancement
             });
         });
+        }
+    });
+
+    //FAIL FUNCTION
+    describe('fail(item)', () => {
+        let {name,durability,enhancement} = elvinBow;
+        if (enhancement < 15) {
+            it('should return an object with durability -=5', () => {
+                expect(enhancer.fail(elvinBow)).toEqual({
+                    name: name,
+                    durability:durability -=5,
+                    enhancement: enhancement
+                });
+            });
+        } else if (enhancement >= 15 && enhancement < 17) {
+            it('should return an object with durability -=10', () => {
+                expect(enhancer.fail(elvinBow)).toEqual({
+                    name: name,
+                    durability:durability -=10,
+                    enhancement: enhancement
+                });
+            });
+        } else if (enhancement > 16) {
+            it('should return an object with durability -=10, enhancement -=1', () => {
+                expect(enhancer.fail(elvinBow)).toEqual({
+                    name: name,
+                    durability:durability -=10,
+                    enhancement: enhancement -=1
+                });
+            });
         }
     });
 });

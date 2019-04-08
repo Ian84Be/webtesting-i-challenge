@@ -27,7 +27,23 @@ function succeed(item) {
 }
 
 function fail(item) {
-  return { ...item };
+  if (typeof(item) !== 'object') {
+    return 'error: input must be an object';
+  }
+  let {name,durability,enhancement} = item;
+  if (!name || typeof(durability) !== 'number' || typeof(enhancement) !== 'number') {
+    return 'error: object must include name, durability, and enhancement properties';
+  }
+  if (enhancement < 15) durability -=5;
+  if (enhancement >= 15) durability -=10;
+  if (enhancement > 16) enhancement -=1;
+
+  const failure = {
+    name:name,
+    durability:durability,
+    enhancement: enhancement
+  };
+  return { ...failure };
 }
 
 function repair(item) {
