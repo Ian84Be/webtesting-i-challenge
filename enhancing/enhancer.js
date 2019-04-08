@@ -14,9 +14,8 @@ function succeed(item) {
   if (!name || typeof(durability) !== 'number' || typeof(enhancement) !== 'number') {
     return 'error: object must include name, durability, and enhancement properties';
   }
+  
   if (enhancement < 20) enhancement +=1;
-  // if (enhancement > 20) enhancement =20;
-
 
   const success = {
     name:name,
@@ -34,6 +33,7 @@ function fail(item) {
   if (!name || typeof(durability) !== 'number' || typeof(enhancement) !== 'number') {
     return 'error: object must include name, durability, and enhancement properties';
   }
+
   if (enhancement < 15) durability -=5;
   if (enhancement >= 15) durability -=10;
   if (enhancement > 16) enhancement -=1;
@@ -54,6 +54,7 @@ function repair(item) {
   if (!name || typeof(enhancement) !== 'number') {
     return 'error: object must include name and enhancement properties';
   }
+
   const repaired = {
     name:name,
     durability:100,
@@ -63,5 +64,20 @@ function repair(item) {
 }
 
 function get(item) {
-  return { ...item };
+  if (typeof(item) !== 'object') {
+    return 'error: input must be an object';
+  }
+  let {name,durability,enhancement} = item;
+  if (!name || typeof(durability) !== 'number' || typeof(enhancement) !== 'number') {
+    return 'error: object must include name, durability, and enhancement properties';
+  }
+
+  if (enhancement > 0) name = `[+${enhancement}] ${name}`;
+
+  const result = {
+    name:name,
+    durability:durability,
+    enhancement: enhancement
+  };
+  return { ...result };
 }
