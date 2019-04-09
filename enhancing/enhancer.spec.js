@@ -135,6 +135,21 @@ describe('enhancer.js', () => {
                 enhancement: enhancement
             });
         });
+
+        it('should return item with updated name = "[+e] name" if previously enhanced', () => {
+            const getBow3 = {
+                name:'[+7] Elvin Bow',
+                durability: 90,
+                enhancement: 14,
+            };
+            const {durability,enhancement} = getBow3;
+            const newName = '[+14] Elvin Bow';
+            expect(enhancer.get(getBow3)).toEqual({
+                name: newName,
+                durability:durability,
+                enhancement: enhancement
+            });
+        });
     });
 });
 
