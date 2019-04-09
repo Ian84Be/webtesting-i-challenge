@@ -14,7 +14,7 @@ function succeed(item) {
   if (!name || typeof(durability) !== 'number' || typeof(enhancement) !== 'number') {
     return 'error: object must include name, durability, and enhancement properties';
   }
-  
+
   if (enhancement < 20) enhancement +=1;
 
   const success = {
@@ -37,6 +37,10 @@ function fail(item) {
   if (enhancement < 15) durability -=5;
   if (enhancement >= 15) durability -=10;
   if (enhancement > 16) enhancement -=1;
+
+  if (durability <= 0) {
+    return 'message: Item has been destroyed';
+  }
 
   const failure = {
     name:name,
